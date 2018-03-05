@@ -33,9 +33,9 @@ class Solution(object):
 
 
 if __name__ == "__main__":
-    # test_list = [1, 1, 2, 2, 3, 3]
+    test_list = [1, 1, 2, 2, 3, 3]
     # test_list = [1, 1, 1, 1]
     # test_list = range(100000)
-    test_list = []
+    # test_list = []
     solution = Solution()
     print solution.removeDuplicates(test_list)
