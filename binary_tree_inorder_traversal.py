@@ -41,8 +41,8 @@ class Solution(object):
         res = []
         if node is None:
             return []
-        if node.left is None and node.right is None:
-            return [node.val]
+        # if node.left is None and node.right is None:
+        #     return [node.val]
 
         # if node.left is not None:
         left_val = cls.traverse_node(node.left)
