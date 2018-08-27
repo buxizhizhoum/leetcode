@@ -54,6 +54,9 @@ class Solution(object):
                 # when check the left sub tree of a node,
                 # the floor is the floor of the nodes so far,
                 # the ceiling is the value of current node
+
+                # ceiling is needed when to check left sub tree, all nodes of
+                # left sub tree should be less than a value
                 left = cls.is_valid(node.left, floor=floor, ceiling=node.val)
             else:
                 left = False
@@ -62,6 +65,8 @@ class Solution(object):
 
         if node.right is not None:
             if node.val < node.right.val < ceiling:
+                # floor is need when to check right sub tree, since all nodes
+                # of right sub tree should be larger than a value
                 right = cls.is_valid(node.right, floor=node.val, ceiling=ceiling)
             else:
                 right = False
