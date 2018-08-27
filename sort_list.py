@@ -13,6 +13,13 @@ Input: -1->5->3->4->0
 Output: -1->0->3->4->5
 """
 
+# refer: https://blog.csdn.net/zhang2531/article/details/52424579
+# 单链表的实现为：
+# 1.使第一个节点为中心点.
+# 2.创建2个指针(p,q),p指向头结点,q指向p的下一个节点.
+# 3.q开始遍历,如果发现q的值比中心点的值小,则此时p=p->next,并且执行当前p的值和q的值交换,q遍历到链表尾即可.
+# 4.把头结点的值和p的值执行交换.此时p节点为中心点,并且完成1轮快排
+# 5.使用递归的方法即可完成排序
 # not passed, because of time limit exceed.
 
 
