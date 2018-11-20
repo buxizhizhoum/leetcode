@@ -55,14 +55,15 @@ class Solution(object):
         # if is leaf and sum == given sum
         if node.left is None and node.right is None:
             if node.val == sum_:
-                tmp.append(node.val)
+                # tmp.append(node.val)
                 # append to res only when the sum is right
-                res.append(tmp)
+                res.append(tmp + [node.val])
                 return
         # todo: think again, append and + in function call is different
         # tmp.append(node.val)
-        self.find_path(node.left, res, tmp + [node.val], sum_ - node.val)
-        self.find_path(node.right, res, tmp + [node.val], sum_ - node.val)
+        else:
+            self.find_path(node.left, res, tmp + [node.val], sum_ - node.val)
+            self.find_path(node.right, res, tmp + [node.val], sum_ - node.val)
 
 
 if __name__ == "__main__":
