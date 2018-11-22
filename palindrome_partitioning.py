@@ -78,7 +78,7 @@ class Solution(object):
             if not self.is_palindrome(current_str):
                 continue
 
-            # todo: Attention: if path.append, path.pop is needed after recur
+            # todo: Attention, if path.append, path.pop is needed after recur
             path.append(current_str)
             # self.find_palindrome(res, path + [current_str], s[i:], length)
             self.find_palindrome_2(res, path, s[i:], length)
