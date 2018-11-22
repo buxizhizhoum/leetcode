@@ -28,8 +28,8 @@ class Solution(object):
         res = []
         answer = []
         numbers = range(1, n+1)
-        # self.find_combination(res, answer, numbers, k)
-        self.find_combination_2(res, answer, numbers, k)
+        self.find_combination(res, answer, numbers, k)
+        # self.find_combination_2(res, answer, numbers, k)
         return res
 
     def find_combination(self, res, answer, numbers, k):
@@ -37,7 +37,11 @@ class Solution(object):
             res.append(answer)
             return res
 
-        for i in range(0, len(numbers)):
+        # for i in range(0, len(numbers)):
+        # todo: Attention: this is optimization, the size of sub list of numbers is len(numbers) - i + 1
+        # there should be at least k-1 element in the sub list of numbers
+        # len(numbers) - i + 1 >= k -1  => i <= len(numbers) - k => i < len(numbers) - k + 1
+        for i in range(0, len(numbers) - k + 1):  # Pruning
             current_num = numbers[i]
 
             self.find_combination(res, answer + [current_num], numbers[i+1:], k - 1)
@@ -46,7 +50,7 @@ class Solution(object):
         if k == 0:
             # import copy
             # res.append(copy.copy(answer))
-            res.append(answer[:])
+            res.append(answer[:])  # [:] is shadow copy
             return res
 
         for i in range(0, len(numbers)):
