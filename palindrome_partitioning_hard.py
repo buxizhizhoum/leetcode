@@ -33,12 +33,12 @@ class Solution(object):
                 self.min_cut = current_cut
             return
 
-        for i in range(1, len(s) + 1):
-            current_str = s[:i]
+        for i in range(0, len(s)):
+            current_str = s[:i+1]
             if not self.is_palindrome(current_str):
                 continue
 
-            self.find_palindrome(path + [current_str], s[i:], length)
+            self.find_palindrome(path + [current_str], s[i+1:], length)
 
     def is_palindrome(self, string):
         """
@@ -56,12 +56,31 @@ class Solution(object):
                 return False
         return True
 
+    def is_palindrome_2(self, string):
+        length = len(string)
+        if length <= 1:
+            return True
+
+        mid = length // 2
+        if length % 2 == 0:
+            before = string[:mid]
+            after = string[mid:]
+            if before == after[::-1]:
+                return True
+        else:
+            if string[:mid] == string[mid+1:][::-1]:
+                return True
+        return False
+
 
 if __name__ == "__main__":
-    test_string = "ababababababababababababcbabababababababababababa"
-    print(Solution().minCut(test_string))
+    test_string = "aab"
+    test_string = "abbab"
+    # test_string = "ababababababababababababcbabababababababababababa"
+    # print(Solution().minCut(test_string))
+    print(Solution().is_palindrome_2("abcba"))
 
-    # todo: time limit exceeded.
+    # todo: time limit exceeded
 
 
 
