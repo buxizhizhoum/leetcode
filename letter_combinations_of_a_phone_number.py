@@ -15,6 +15,8 @@ Note:
 
 Although the above answer is in lexicographical order, your answer could be in any order you want.
 """
+# both of the 3 methods works on local,
+# however only the third one passed on leetcode
 
 
 class Solution(object):
@@ -27,11 +29,19 @@ class Solution(object):
         :type digits: str, eg. "235"
         :rtype: List[str]
         """
+        # if digits == "":
+        #     return []
+        # self.find_combination(digits, 0, "")
+        # # self.find_combination_2(digits, len(digits) - 1, "")
+        # return self.res
+
+        res = []
+        path = []
         if digits == "":
             return []
-        self.find_combination(digits, 0, "")
-        # self.find_combination_2(digits, len(digits) - 1, "")
-        return self.res
+        length = len(digits)
+        self.find_combination_3(digits, path, res, length)
+        return res
 
     def find_combination(self, digits, index, cur_string):
         """
@@ -84,13 +94,25 @@ class Solution(object):
         for char in letter_str:
             self.find_combination_2(digits, index - 1, char + cur_string)
 
+    def find_combination_3(self, digits, path, res, length):
+        if len(digits) == 0 and len(path) == length:
+            res.append("".join(path))
+            return
+        if len(digits) == 0:
+            return
+
+        for i in range(len(digits)):
+            number = int(digits[int(i)])
+            current_str = self.letters[number]
+            for char in current_str:
+                self.find_combination_3(digits[i+1:], path + [char], res, length)
+
 
 if __name__ == "__main__":
-    # print(Solution().letterCombinations("235"))
-    print(Solution().letterCombinations("2"))
-    # local test pass, leetcode not pass
+    print(Solution().letterCombinations("235"))
+    # print(Solution().letterCombinations("2"))
 
-    
+
 
 
 
