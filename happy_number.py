@@ -24,9 +24,15 @@ class Solution(object):
         :rtype: bool
         """
         max_try_times = 900
-        return self._is_happy(n, max_try_times)
+        return self._is_happy_2(n, max_try_times)
 
     def _is_happy(self, n, try_times):
+        """
+        backtracking version
+        :param n:
+        :param try_times:
+        :return:
+        """
         if n == 1:
             return True
         if try_times == 0:
@@ -37,9 +43,27 @@ class Solution(object):
 
         return self._is_happy(sum_, try_times-1)
 
+    def _is_happy_2(self, n, try_times):
+        """
+        loop version
+        :param n:
+        :param try_times:
+        :return:
+        """
+        string = str(n)
+        while try_times > 0:
+            sum_ = sum(int(char) ** 2 for char in string)
+
+            if sum_ == 1:
+                return True
+            else:
+                string = str(sum_)
+            try_times -= 1
+        return False
+
 
 if __name__ == "__main__":
-    print(Solution().isHappy(2))
+    print(Solution().isHappy(19))
 
 
 
