@@ -25,6 +25,8 @@ You may assume both s and t have the same length.
 
 
 class Solution(object):
+    buffer_s_t = {}
+    buffer_t_s = {}
     def isIsomorphic(self, s, t):
         """
         :type s: str
@@ -35,7 +37,8 @@ class Solution(object):
         buffer_t_s = {}
         # return self._is_isomorphic(s, t, buffer_s_t, buffer_t_s)
         # return self._is_isomorphic_2(s, t, buffer_s_t)
-        return self._is_isomorphic_3(s, t, buffer_s_t, buffer_t_s)
+        # return self._is_isomorphic_3(s, t, buffer_s_t, buffer_t_s)
+        return self._is_isomorphic_4(s, t)
 
     def _is_isomorphic(self, s, t, buffer_s_t, buffer_t_s):
         """
@@ -119,10 +122,36 @@ class Solution(object):
                 return False
         return True
 
+    def _is_isomorphic_4(self, s, t):
+        """
+        backtracking version, two dict to buffer in class variables.
+
+        local test passed, however leetcode not accept this answer.
+        :param s:
+        :param t:
+        :return:
+        """
+        if len(s) == 0 and len(t) == 0:
+            return True
+
+        char_s = s[0]
+        char_t = t[0]
+        if char_s not in self.buffer_s_t and char_t not in self.buffer_t_s:
+            self.buffer_s_t[char_s] = char_t
+            self.buffer_t_s[char_t] = char_s
+
+            return self._is_isomorphic_4(s[1:], t[1:])
+        elif (self.buffer_s_t.get(char_s) and self.buffer_t_s.get(char_t)) is None:
+            return False
+        elif self.buffer_s_t[char_s] == char_t and self.buffer_t_s[char_t] == char_s:
+            return self._is_isomorphic_4(s[1:], t[1:])
+        else:
+            return False
+
 
 if __name__ == "__main__":
-    s = "ab"
-    t = "aa"
+    s = "a"
+    t = "a"
     print(Solution().isIsomorphic(s, t))
 
 
