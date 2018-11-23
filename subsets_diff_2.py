@@ -37,8 +37,10 @@ class Solution(object):
             return
 
         # when to find combinations of at least k element, optimize is possible
+
         # for i in range(len(nums) - k + 1), ensure at least k element in nums.
         # 0<=i<len(nums)-k+1 <==> if len(num)>k-1
+
         # however when find all combinations, not found a way to optimize
         for i in range(len(nums)):
             current_num = nums[i]
