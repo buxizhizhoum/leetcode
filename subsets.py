@@ -35,6 +35,8 @@ class Solution(object):
         return res
 
     def find_subsets(self, res, answer, nums):
+        # this is to find all combinations,
+        # so res.append(answer) not executed at here
         if len(nums) == 0:
             return
 

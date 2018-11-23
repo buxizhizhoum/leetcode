@@ -26,11 +26,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        res = []
+        # res = []
+        # answer = []
+        # self.find_subsets(res, answer, nums)
+        # res.append([])
+        # return res
+
+        res = set()
         answer = []
-        self.find_subsets(res, answer, nums)
-        res.append([])
-        return res
+        self.find_subsets_2(res, answer, nums)
+
+        res_list = [list(item) for item in res]
+        res_list.append([])
+        return res_list
 
     def find_subsets(self, res, answer, nums):
         if len(nums) == 0:
@@ -48,6 +56,25 @@ class Solution(object):
             if sorted(answer + [current_num]) not in res:
                 res.append(sorted(answer + [current_num]))
             self.find_subsets(res, answer + [current_num], nums[i+1:])
+
+    def find_subsets_2(self, res, answer, nums):
+        if len(nums) == 0:
+            return
+
+        # when to find combinations of at least k element, optimize is possible
+
+        # for i in range(len(nums) - k + 1), ensure at least k element in nums.
+        # 0<=i<len(nums)-k+1 <==> if len(num)>k-1
+
+        # however when find all combinations, not found a way to optimize
+        for i in range(len(nums)):
+            current_num = nums[i]
+            # todo: is there any better method to ensure no dup combinations?
+
+            # if sorted(answer + [current_num]) not in res:
+            #     res.append(sorted(answer + [current_num]))
+            res.add(tuple(sorted(answer + [current_num])))
+            self.find_subsets_2(res, answer + [current_num], nums[i+1:])
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ Note:
 Although the above answer is in lexicographical order, your answer could be in any order you want.
 """
 # both of the 3 methods works on local,
-# however only the third one passed on leetcode
+# however only the third one passed on leetcode.
 
 
 class Solution(object):
