@@ -40,12 +40,20 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         old_color = image[sr][sc]
-        self.dfs(image, sr, sc, newColor, old_color)
+        # self.fill(image, sr, sc, newColor, old_color)
+        self.fill_2(image, sr, sc, newColor, old_color)
         return image
 
-    def dfs(self, image, x, y, newColor, old_color):
-
-
+    def fill(self, image, x, y, newColor, old_color):
+        """
+        forget this answer
+        :param image:
+        :param x:
+        :param y:
+        :param newColor:
+        :param old_color:
+        :return:
+        """
         for i in range(x, len(image)):
             for j in range(y, len(image[0])):
 
@@ -64,7 +72,7 @@ class Solution(object):
                         # todo: how to judge connection?
                         # and image[i][j] == newColor
                         if image[new_x][new_y] == old_color:
-                            self.dfs(image, new_x, new_y, newColor, old_color)
+                            self.fill(image, new_x, new_y, newColor, old_color)
                 # todo: necessary?
                 # self.visited[(i, j)] = False
 
@@ -81,6 +89,45 @@ class Solution(object):
             return False
         return True
 
+    # def fill_2(self, image, sr, sc, newColor, old_color):
+    #     # todo: pay attention here, change color do not need 2 level for loop
+    #     for i in range(sr, len(image)):
+    #         for j in range(sc, len(image[0])):
+    #
+    #             if self.in_board(i, j, image) and not self.is_visited(i, j):
+    #                 if image[i][j] == old_color:
+    #                     image[i][j] = newColor
+    #
+    #                     self.visited[(i, j)] = True
+    #                     self.dfs(image, sr, sc, newColor, old_color)
+
+    def fill_2(self, image, sr, sc, newColor, old_color):
+        """
+        local test passed, not accepted by leetcode.
+        :param image:
+        :param sr:
+        :param sc:
+        :param newColor:
+        :param old_color:
+        :return:
+        """
+        if self.in_board(sr, sc, image) and not self.is_visited(sr, sc):
+            if image[sr][sc] == old_color:
+                image[sr][sc] = newColor
+
+                self.visited[(sr, sc)] = True
+                self.dfs(image, sr, sc, newColor, old_color)
+
+    def dfs(self, image, x, y, newColor, old_color):
+        for direction in self.directions:
+            new_x = x + direction[0]
+            new_y = y + direction[1]
+
+            if self.in_board(new_x, new_y, image) and not self.is_visited(new_x, new_y):
+                if image[new_x][new_y] == old_color:
+                    image[new_x][new_y] = newColor
+                    self.dfs(image, new_x, new_y, newColor, old_color)
+
 
 if __name__ == "__main__":
     image = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
@@ -94,6 +141,8 @@ if __name__ == "__main__":
     newColor = 2
 
     print(Solution().floodFill(image, sr, sc, newColor))
+
+    # todo: local test passed, leetcode not pass.
 
 
 
