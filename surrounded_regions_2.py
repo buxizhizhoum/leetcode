@@ -43,18 +43,18 @@ class Solution(object):
         if len(board[0]) <= 1:
             return
 
-        res = []
         for i in range(len(board)):
             for j in range(len(board[0])):
                 if board[i][j] == "O" and not self.on_side(i, j, board) \
                         and not self.is_visited(i, j):
-                    if self.dfs(board, i, j, res) is not False:
-                        self.res.append((i, j))
+                    self.dfs(board, i, j)
+                    # if self.dfs(board, i, j) is not False:
+                        # self.res.append((i, j))  # append is done in dfs()
 
         for point in self.res:
             board[point[0]][point[1]] = "X"
 
-    def dfs(self, board, x, y, res):
+    def dfs(self, board, x, y):
         if self.on_side(x, y, board):
             # if on side, it means O is not surrounded by X
             return False
@@ -68,7 +68,7 @@ class Solution(object):
                     and not self.is_visited(new_x, new_y) \
                     and board[new_x][new_y] == "O":
                 # todo: compare where the visited changes in other problem
-                if self.dfs(board, new_x, new_y, res) is False:
+                if self.dfs(board, new_x, new_y) is False:
                     return False
         self.res.append((x, y))
 
@@ -100,8 +100,8 @@ if __name__ == "__main__":
                   ['X', 'X', 'O', 'X'],
                   ['X', 'O', 'X', 'X']]
 
-    test_board = [["O","O"],["O","O"]]
-    test_board = [["X","X","X"],["X","O","X"],["X","X","X"]]
+    # test_board = [["O","O"],["O","O"]]
+    # test_board = [["X","X","X"],["X","O","X"],["X","X","X"]]
 
     Solution().solve(test_board)
     print(test_board)
