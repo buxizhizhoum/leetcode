@@ -34,32 +34,32 @@ class Solution(object):
         :rtype: List[List[str]]
         """
         col = [False for _ in range(n)]
-        dialog1 = [False for _ in range(2 * n - 1)]
-        dialog2 = [False for _ in range(2 * n - 1)]
+        diagonal1 = [False for _ in range(2 * n - 1)]
+        diagonal2 = [False for _ in range(2 * n - 1)]
 
         res = []
         answer = []
         # for i in range(n):
-        self.dfs(n, 0, res, answer, col, dialog1, dialog2)
+        self.dfs(n, 0, res, answer, col, diagonal1, diagonal2)
         board = self.generate_result(n, res)
         return board
 
-    def dfs(self, n, i, res, answer, col, dialog1, dialog2):
+    def dfs(self, n, i, res, answer, col, diagonal1, diagonal2):
         if i == n:
             res.append(answer)
             return
 
         # j are in range(n), and will not be out of board
         for j in range(n):
-            if not col[j] and not dialog1[i+j] and not dialog2[i-j+n-1]:
+            if not col[j] and not diagonal1[i+j] and not diagonal2[i-j+n-1]:
                 col[j] = True
-                dialog1[i + j] = True
-                dialog2[i - j + n - 1] = True
+                diagonal1[i + j] = True
+                diagonal2[i - j + n - 1] = True
 
-                self.dfs(n, i+1, res, answer+[(i, j)], col, dialog1, dialog2)
+                self.dfs(n, i+1, res, answer+[(i, j)], col, diagonal1, diagonal2)
 
-                dialog2[i - j + n - 1] = False
-                dialog1[i + j] = False
+                diagonal2[i - j + n - 1] = False
+                diagonal1[i + j] = False
                 col[j] = False
         return
 
