@@ -45,7 +45,6 @@ class Solution(object):
             i += 1
 
 
-
 if __name__ == "__main__":
     nums1 = [1, 2, 3, 0, 0, 0]
     m = 3
