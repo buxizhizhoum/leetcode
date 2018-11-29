@@ -18,6 +18,7 @@ The vowels does not include the letter "y".
 
 class Solution(object):
     vowels = ["a", "i", "o", "e", "u"]
+    
     def reverseVowels(self, s):
         """
         :type s: str
