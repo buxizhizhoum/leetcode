@@ -24,30 +24,19 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
+        # return self.search(numbers, target)
+        return self.two_point(numbers, target)
+
+    def search(self, numbers, target):
         if not numbers:
             return
-        # if target == 0:
-        #     return
 
         for i in range(len(numbers)):
             diff = target - numbers[i]
-            diff_index = self.binary_search(numbers, diff, i, len(numbers)-1)
+            # search form i + i
+            diff_index = self.binary_search(numbers, diff, i+1, len(numbers)-1)
             if diff_index is not None and diff_index != i:
                 return sorted([i+1, diff_index+1])
-
-    # def binary_search(self, numbers, target, start, end):
-    #     mid = start + (end - start)//2
-    #     if target == numbers[mid]:
-    #         return mid
-    #
-    #     if start == end:
-    #         return
-    #
-    #     if target > numbers[mid]:
-    #         start = mid + 1
-    #     else:
-    #         end = mid - 1
-    #     self.binary_search(numbers, target, start, end)
 
     def binary_search(self, numbers, target, start, end):
         while start <= end:
@@ -60,6 +49,22 @@ class Solution(object):
                 start = mid + 1
             else:
                 end = mid - 1
+
+    def two_point(self, numbers, target):
+        start = 0
+        end = len(numbers) - 1
+
+        if len(numbers) < 2:
+            return None
+
+        while start < end:
+            if numbers[start] + numbers[end] == target:
+                return [start + 1, end + 1]
+            elif numbers[start] + numbers[end] > target:
+                end -= 1
+            else:
+                start += 1
+        return None
 
 
 if __name__ == "__main__":
