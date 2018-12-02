@@ -32,6 +32,7 @@ class Solution(object):
         counter_s = Counter(s)
         counter_t = Counter(t)
 
-        if counter_s == counter_t:
-            return True
-        return False
+        # if counter_s == counter_t:
+        #     return True
+        # return False
+        return counter_s == counter_t
