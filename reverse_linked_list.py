@@ -46,9 +46,10 @@ class Solution(object):
 
 
 if __name__ == "__main__":
-    from tools.create_linked_list import create
-    test_linked_list = create(range(1, 6))
+    from tools.linked_list import LinkedList
+    linked_list = LinkedList(range(1, 6))
+    test_head = linked_list.create()
 
-    print(Solution().reverseList(test_linked_list))
-
-
+    linked_list.print_list(test_head)
+    reversed_head = Solution().reverseList(test_head)
+    linked_list.print_list(reversed_head)
