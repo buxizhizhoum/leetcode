@@ -36,9 +36,16 @@ class Solution(object):
         :type k: int
         :rtype: ListNode
         """
-        return self.my_ans(head, k)
+        # return self.my_ans(head, k)
+        return self.slow_fast_pointer(head, k)
 
     def my_ans(self, head, k):
+        """
+        first make the linked list to a cycle list and then find new head
+        :param head:
+        :param k:
+        :return:
+        """
         length = self.length(head)
         if length <= 1:
             return head
@@ -56,12 +63,12 @@ class Solution(object):
         # how many nodes to forward in cycle list
         step = length - k
         cur = head
+        # to find new head
         for _ in range(step - 1):
             cur = cur.next
         head = cur.next
         cur.next = None
         return head
-
 
     def cycle(self, head):
         """
@@ -83,17 +90,50 @@ class Solution(object):
             cur = cur.next
         return length
 
+    def slow_fast_pointer(self, head, k):
+        """
+        slow fast version, when fast pointer reaches to the tail, where the
+        slow point is is the new tail
+        :param head:
+        :param k:
+        :return:
+        """
+        if head is None or head.next is None:
+            return head
+
+        length = self.length(head)
+        k = k % length
+
+        if k == 0:
+            return head
+
+        slow = head
+        fast = head
+        for _ in range(k):
+            fast = fast.next
+
+        while fast.next is not None:
+            slow = slow.next
+            fast = fast.next
+
+        new_head = slow.next
+        slow.next = None
+        fast.next = head
+
+        return new_head
+
 
 if __name__ == "__main__":
     from tools.linked_list import LinkedList
 
     data = range(1, 6)
+    data = [1, 2]
     linked_list = LinkedList(data)
 
     head1 = linked_list.create()
     linked_list.print_list(head1)
 
-    head_new = Solution().rotateRight(head1, 111)
+    head_new = Solution().rotateRight(head1, 2)
 
     linked_list.print_list(head_new)
 
