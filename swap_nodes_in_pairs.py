@@ -26,6 +26,9 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+        return self.ans_1(head)
+
+    def ans(self, head):
         if head is None or head.next is None:
             return head
 
@@ -45,6 +48,27 @@ class Solution(object):
             pre = node1
             node1 = pre.next
             linked_list.print_list(dummy_head.next)
+        return dummy_head.next
+
+    def ans_1(self, head):
+        if head is None or head.next is None:
+            return head
+
+        dummy_head = ListNode(None)
+        dummy_head.next = head
+
+        pre = dummy_head
+        while pre.next is not None and pre.next.next is not None:
+            node1 = pre.next
+            node2 = node1.next
+            node_next = node2.next
+
+            node2.next = node1
+            pre.next = node2
+            node1.next = node_next
+
+            pre = node1
+
         return dummy_head.next
 
 
