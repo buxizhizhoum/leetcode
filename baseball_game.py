@@ -59,13 +59,13 @@ class Solution(object):
 
         return sum(stack)
 
-    def stack_operation(self, operater, stack):
-        if operater == "C":
+    def stack_operation(self, operator, stack):
+        if operator == "C":
             stack.pop()
-        elif operater == "D":
+        elif operator == "D":
             top = stack[-1]
             stack.append(top * 2)
-        elif operater == "+":
+        elif operator == "+":
             first = stack[-1]
             second = stack[-2]
             stack.append(first + second)
