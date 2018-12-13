@@ -60,7 +60,7 @@ class Solution(object):
         # start from n
         queue = Queue()
         visited = {}  # record whether a node is visited or not
-
+        # todo: Attention trick, add visit level in a (node, level) tuple
         queue.put((start, 0))
         visited[start] = True
 
