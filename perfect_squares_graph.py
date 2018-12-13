@@ -36,15 +36,14 @@ class Solution(object):
 
     def create_graph(self, n):
         # todo: think directed or not directed?
-        # not directed but when creating the graph, ensured only node less than
-        # current node is connected
+        # directed, current node point to nodes that are less than current node
         graph = {i: [] for i in range(n+1)}
 
         for i in range(n+1):
             # node connected to a old node should be less than old node
             for j in range(i):
                 # if i != j and i diff j with one square number
-                if self.is_square(abs(i-j)):
+                if self.is_square(i-j):
                     graph[i].append(j)
 
         return graph
