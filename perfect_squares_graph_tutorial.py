@@ -67,6 +67,7 @@ class Solution(object):
         while not queue.empty():
             node, step = queue.get()
 
+            # while node - i ** 2 >= 0:
             for i in range(1, int(math.sqrt(node)) + 1):
                 # this is the optimize
                 new_node = node - i**2
