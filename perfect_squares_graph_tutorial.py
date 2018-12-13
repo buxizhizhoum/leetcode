@@ -27,11 +27,36 @@ class Solution(object):
         :rtype: int
         """
         t0 = time.time()
-        res = self.bfs(n, 0)
+        res = self.bfs_optimized(n, 0)
         print(time.time() - t0)
         return res
 
-    def bfs(self, start, end):
+    # def bfs(self, start, end):
+    #     # start from n
+    #     queue = Queue()
+    #     visited = {}  # record whether a node is visited or not
+    #
+    #     queue.put((start, 0))
+    #     visited[start] = True
+    #
+    #     while not queue.empty():
+    #         node, step = queue.get()
+    #
+    #         for i in range(int(math.sqrt(node)) + 1):
+    #             if node - i ** 2 == end:
+    #                 return step + 1
+    #
+    #             if node - i ** 2 >= 0 and not visited.get(node - i**2):
+    #                 queue.put((node - i**2, step + 1))
+    #                 visited[node - i**2] = True
+
+    def bfs_optimized(self, start, end):
+        """
+        optimized bfs
+        :param start:
+        :param end:
+        :return:
+        """
         # start from n
         queue = Queue()
         visited = {}  # record whether a node is visited or not
@@ -42,22 +67,24 @@ class Solution(object):
         while not queue.empty():
             node, step = queue.get()
 
-            for i in range(int(math.sqrt(node)) + 1):
-                if node - i ** 2 == end:
+            for i in range(1, int(math.sqrt(node)) + 1):
+                # this is the optimize
+                new_node = node - i**2
+                if new_node == end:
                     return step + 1
 
-                if node - i ** 2 >= 0 and not visited.get(node - i**2):
-                    queue.put((node - i**2, step + 1))
-                    visited[node - i**2] = True
+                if new_node >= 0 and not visited.get(new_node):
+                    queue.put((new_node, step + 1))
+                    visited[new_node] = True
 
 
 if __name__ == "__main__":
     print(Solution().numSquares(8935))
     # print(Solution().numSquares(12))
 
-    # accepted
+    # refer from liuyubobobo on imooc
 
-    # todo: what is the difference between graph before and after optimized
+
 
 
 
