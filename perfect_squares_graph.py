@@ -77,7 +77,10 @@ class Solution(object):
             neighbors = graph[node]
             for new_node in neighbors:
                 # if new_node diff node with one square number, put to queue
-                if not visited.get(new_node) and self.is_square(abs(node - new_node)):
+                # todo: seems self.is_square(abs(node - new_node)) is unnecessary
+                # the graph has ensured the diff is a square number
+                # if not visited.get(new_node) and self.is_square(abs(node - new_node)):
+                if not visited.get(new_node):
                     queue.put(new_node)
                     visited[new_node] = True
                     order[new_node] = order[node] + 1

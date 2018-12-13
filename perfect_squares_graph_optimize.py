@@ -84,5 +84,7 @@ if __name__ == "__main__":
 
     # accepted
 
+    # todo: what is the difference between graph before and after optimized
+
 
 
