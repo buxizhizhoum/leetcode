@@ -119,6 +119,7 @@ class Solution(object):
 
                 # todo: attention return method in recursion
                 res = self.dfs_optimize_refer_solution(rooms, key, visited)
+                # res from recursion is used
                 if res is True:
                     return True
 
@@ -140,6 +141,7 @@ class Solution(object):
                 visited[key] = True
 
                 # todo: attention return method in recursion
+                # did not use the result from recursion
                 self.dfs_optimize_new(rooms, key, visited)
 
         # todo: attention return method in recursion
