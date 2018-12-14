@@ -42,8 +42,12 @@ class Solution(object):
         """
         # visited = [0]
         # return self.dfs(rooms, 0, visited)
-        visited = {0: True}
-        return self.dfs_optimize(rooms, 0, visited)
+        # visited = {0: True}
+        # return self.dfs_optimize(rooms, 0, visited)
+        visited = [False for _ in range(len(rooms))]
+        visited[0] = True
+        # return self.dfs_optimize_refer_solution(rooms, 0, visited)
+        return self.dfs_optimize_new(rooms, 0, visited)
 
     def dfs(self, rooms, start, visited):
         # if all rooms are visited
@@ -95,11 +99,57 @@ class Solution(object):
         # todo: attention return method in recursion
         return False
 
+    def dfs_optimize_refer_solution(self, rooms, start, visited):
+        # if all rooms are visited
+        if len(visited) == len(rooms) and all(visited):
+            return True
+
+        # get keys in current room
+        keys = rooms[start]
+        for key in keys:
+            if start == key:
+                # this if is just an optimization
+                # if a room store its own key, continue next loop
+                continue
+
+            # if not visited, visit it
+            if not visited[key]:
+                # bisect.insort(visited, key)
+                visited[key] = True
+
+                # todo: attention return method in recursion
+                res = self.dfs_optimize_refer_solution(rooms, key, visited)
+                if res is True:
+                    return True
+
+        # todo: attention return method in recursion
+        return False
+
+    def dfs_optimize_new(self, rooms, start, visited):
+        # get keys in current room
+        keys = rooms[start]
+        for key in keys:
+            if start == key:
+                # this if is just an optimization
+                # if a room store its own key, continue next loop
+                continue
+
+            # if not visited, visit it
+            if not visited[key]:
+                # bisect.insort(visited, key)
+                visited[key] = True
+
+                # todo: attention return method in recursion
+                self.dfs_optimize_new(rooms, key, visited)
+
+        # todo: attention return method in recursion
+        return all(visited)
+
 
 if __name__ == "__main__":
     test_rooms = [[1],[2],[3],[]]
-    test_rooms = [[1,3],[3,0,1],[2],[0]]
-    test_rooms = [[2,3],[],[2],[1,3,1]]
+    # test_rooms = [[1,3],[3,0,1],[2],[0]]
+    # test_rooms = [[2,3],[],[2],[1,3,1]]
     print(Solution().canVisitAllRooms(test_rooms))
 
     # try visit dict
