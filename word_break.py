@@ -23,7 +23,6 @@ Example 3:
 Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
 Output: false
 """
-from collections import defaultdict
 
 
 class Solution(object):
@@ -59,7 +58,7 @@ class Solution(object):
 
     def ans(self, s, word_set, cache):
         """
-        optimize with memorize
+        recursion, dfs, optimize with memorization
         :param s:
         :param word_set:
         :param cache:
@@ -81,9 +80,9 @@ class Solution(object):
                 # if true, stop recursion advance
                 if tmp is True:
                     # cache res
-                    # todo: Attention line below
+                    # todo: Attention line below, it is not necessary
                     # it also works if line below is removed
-                    cache[s[i+1:]] = True
+                    # cache[s[i+1:]] = True
                     return True
         # means s cloud not break
         cache[s] = False
@@ -102,3 +101,4 @@ if __name__ == "__main__":
     # test_wordDict = ["cats", "dog", "sand", "and", "cat"]
     print(Solution().wordBreak(test_s, test_wordDict))
 
+    # todo: dp mesh
