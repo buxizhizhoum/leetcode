@@ -35,7 +35,8 @@ class Solution(object):
         # cache wordDict as set to optimize check
         word_set = set(wordDict)
         cache = {}
-        return self.ans(s, word_set, cache)
+        # return self.ans(s, word_set, cache)
+        return self.ans_1(s, word_set, cache)
 
     def ans_basic(self, s, word_set):
         """
@@ -88,6 +89,39 @@ class Solution(object):
         cache[s] = False
         return False
 
+    def ans_1(self, s, word_set, cache):
+        """
+        recursion, dfs, optimize with memorization
+        :param s:
+        :param word_set:
+        :param cache:
+        :return:
+        """
+        if not s:
+            return True
+
+        # if it is already processed, return it res directly
+        # if it could not break, stop advance
+        # todo: Attention, this is to cache False case
+        if cache.get(s) is not None:
+            return cache.get(s)
+
+        res = None
+        for i in range(len(s)):
+            word = s[:i + 1]
+            if word in word_set:
+                tmp = self.ans_1(s[i + 1:], word_set, cache)
+                # if true, stop recursion advance
+                if tmp is True:
+                    res = True
+                    # todo: does line below helps, when there is memorization, return here is just optimize?
+                    # return True
+                elif not tmp:
+                    res = False
+        # means s cloud not break
+        cache[s] = res
+        return res
+
 
 if __name__ == "__main__":
     test_s = "leetcode"
@@ -97,8 +131,8 @@ if __name__ == "__main__":
     test_wordDict = ["a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa",
                      "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"]
 
-    # test_s = "catsandog"
-    # test_wordDict = ["cats", "dog", "sand", "and", "cat"]
+    test_s = "catsandog"
+    test_wordDict = ["cats", "dog", "sand", "and", "cat"]
     print(Solution().wordBreak(test_s, test_wordDict))
 
     # todo: dp mesh
