@@ -81,7 +81,7 @@ class BSTIterator(object):
 
     def push(self, node):
         """
-        push node and its left node to stack recursively
+        push node and its left side node to stack recursively
         :param node:
         :return:
         """
