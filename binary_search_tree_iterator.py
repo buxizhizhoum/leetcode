@@ -40,6 +40,17 @@ class TreeNode(object):
 
 
 class BSTIterator(object):
+    """
+    the smallest value of current node is at leftest of current node,
+    in order to reach smallest value, we have to search to leftest, however
+    after return smallest value, we have to return to its father node, since
+    there is no pointer to a node's father, we have to cache a node's father
+    node when searching, this is why stack is used.
+
+    when a node is pop from stack, if the node have a right node the next smallest
+    node is at right sub tree, the right node and it left node, and left node's left node
+    should be put to stack and waiting for pop
+    """
     def __init__(self, root):
         """
         :type root: TreeNode
