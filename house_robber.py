@@ -50,6 +50,16 @@ class Solution(object):
             #     res = max(res, nums[i])
         return res
 
+    def dfs_1(self, nums, index):
+        # todo: attention the difference between dfs and dfs_1
+        if index >= len(nums):
+            return 0
+
+        res = -1
+        for i in range(index, len(nums)):
+            res = max(res, nums[i] + self.dfs_1(nums, i+2))
+        return res
+
     def dfs_cache(self, nums, cache, index):
         # cache the result of nums[index:], index is the key
         if index < len(cache) and cache[index] != -1:
@@ -95,6 +105,7 @@ if __name__ == "__main__":
     test_nums = [1,3,1]
     test_nums = [4,1,2,7,5,3,1]
     print(Solution().rob(test_nums))
+    print(Solution().dfs_1(test_nums, 0))
 
 
 
