@@ -74,7 +74,7 @@ class Solution(object):
         for i in range(index, len(nums)):
             res = max(res, nums[i] + self.dfs_cache(nums, cache, i+2))
             # todo: attention it is index not i
-            cache[index] = res
+        cache[index] = res
         return res
 
     @staticmethod
