@@ -90,7 +90,7 @@ class Solution(object):
     #     return res
 
     def _recursion_memorize(self, nums, index, base_index, memo):
-        # todo: attention, this is wrong
+        # todo: attention, three are 2 changing parameters, memo is 2D
         if index > len(nums)-1:
             return 0
 
