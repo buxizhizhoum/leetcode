@@ -69,13 +69,16 @@ class Solution(object):
                 return left or right
 
     def iteration(self, root, p, q):
-        # todo: could union find be used?
+        # todo: could union find be used? seems not.
         queue = Queue()
         parents = {root: None}
 
         queue.put(root)
         # todo: queue empty necessary or not?
+        # if p and q is tree node in tree, there will finally in parents,
+        # so queue.empty is unnecessary.
         while p not in parents or q not in parents:
+        # while not queue.empty() and (p not in parents or q not in parents):
             node = queue.get()
 
             if node.left is not None:
