@@ -88,12 +88,13 @@ class Solution(object):
         return left + right + 1
 
     def inorder_traverse(self, root):
+        # todo: it is more clear to use class variable when recursion instead of function wide parameter
         if root is None:
             return
 
         self.inorder_traverse(root.left)
 
-        self.k -= 1
+        self.k -= 1  # if k is used, it is not clear in many recursion
         if self.k == 0:
             self.res = root.val
             return
