@@ -34,21 +34,33 @@ class Solution(object):
         if num == 1:
             return True
 
-        return self.ans(num)
+        # return self.recursion(num)
+        return self.loop(num)
 
-    def ans(self, num):
-        if num in (2,3,5):
+    def recursion(self, num):
+        if num in (2, 3, 5):
             return True
 
-        for i in (2,3,5):
+        for i in (2, 3, 5):
             div, mod = divmod(num, i)
             if mod == 0:
-                tmp = self.ans(div)
+                tmp = self.recursion(div)
                 if tmp is True:
                     return True
         return False
 
+    def loop(self, num):
+        if num <= 0:
+            return False
+
+        for i in (2,3,5):
+            while num % i == 0:
+                num = num // i
+
+        return num == 1
+
     def isprime(self, num):
+        # not used
         if num == 1:
             return False
         if num == 2:
