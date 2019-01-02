@@ -30,6 +30,7 @@ Note:
 All of the nodes' values will be unique.
 p and q are different and both values will exist in the binary tree.
 """
+from Queue import Queue
 
 
 # Definition for a binary tree node.
@@ -67,6 +68,36 @@ class Solution(object):
             else:
                 return left or right
 
+    def iteration(self, root, p, q):
+        # todo: could union find be used?
+        queue = Queue()
+        parents = {root: None}
+
+        queue.put(root)
+        # todo: queue empty necessary or not?
+        while p not in parents or q not in parents:
+            node = queue.get()
+
+            if node.left is not None:
+                parents[node.left] = node
+                queue.put(node.left)
+
+            if node.right is not None:
+                parents[node.right] = node
+                queue.put(node.right)
+
+        ancestor = set()
+        p_cur = p
+        while p_cur is not None:
+            ancestor.add(p_cur)
+            p_cur = parents[p_cur]
+
+        cur = q
+        while cur not in ancestor:
+            cur = parents[cur]
+
+        return cur
+
 
 if __name__ == "__main__":
     from tools.construct_binary_tree import Construction
@@ -75,5 +106,6 @@ if __name__ == "__main__":
 
     test_root = Construction(test_tree).construct()
 
-    print(Solution().lowestCommonAncestor(test_root, 5, 1).val)
+    # print(Solution().lowestCommonAncestor(test_root, 5, 1).val)
+    print(Solution().iteration(test_root, TreeNode(5), TreeNode(1)).val)
 
