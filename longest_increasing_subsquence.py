@@ -36,6 +36,7 @@ class Solution(object):
 
         # return res
         res = max(res, self._recursion(nums, 0, float("-inf")))
+        # todo: -1 is Sentinel?
         # res = max(res, self._recursion_memorize(nums, 0, -1, memo))
         return res
 
