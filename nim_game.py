@@ -83,7 +83,11 @@ class Solution(object):
     #                 break
 
     # def dp(self, n):
-        # wrong answer
+          # wrong answer
+    #     if n > 10000:
+    #         # trick
+    #         return n % 4 != 0
+    #
     #     if n <= 0:
     #         return False
     #     if n < 4:
@@ -102,5 +106,5 @@ class Solution(object):
 
 if __name__ == "__main__":
     print(Solution().canWinNim(5))
-    # print(Solution().dp(5))
+    print(Solution().dp(5))
 
