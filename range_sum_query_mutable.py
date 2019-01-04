@@ -36,7 +36,7 @@ class NumArray(object):
         # todo: does this bottom up?
         n = len(nums)
         # initialize list used to store tree
-        # todo: 4*n ? how 2*n store an complete tree?
+        # todo: 4*n ? how 2*n store an complete tree? strange
         tree = [None for _ in range(2*n)]
         i, j = n, 0
         while i < 2*n:
@@ -46,6 +46,7 @@ class NumArray(object):
 
         i = n-1
         while i > 0:
+            # when left is 2*1 right is 2*i + 1, it is start from 1 in array
             tree[i] = tree[i*2] + tree[i*2 + 1]
             i -= 1
 
