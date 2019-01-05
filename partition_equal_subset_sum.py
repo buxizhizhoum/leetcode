@@ -51,7 +51,11 @@ class Solution(object):
         if index < 0 or sum_total < 0:
             # could not fill the package
             return False
-
+        # todo: usage of index, how about a for loop?
+        # 0 or 1, two choices
+        # res = False
+        # for x in (0, 1):
+        #     res = res or self._recursion(nums, index-1, sum_total - index * x)
         return self._recursion(nums, index-1, sum_total) or \
                     self._recursion(nums, index-1, sum_total - nums[index])
 
