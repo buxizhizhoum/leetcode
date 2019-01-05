@@ -64,6 +64,7 @@ class Solution(object):
         res_1 = 0
         if nums[index] > base:
             # count nums[i], res should + 1
+            # todo: try recursion from tail to head, no matter how, it is from large string to small string
             res_1 = 1 + self._recursion(nums, index + 1, nums[index])
         # nums[i] <= cur
         # do not count nums[i], res should not add 1
