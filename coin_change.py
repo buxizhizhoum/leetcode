@@ -29,8 +29,12 @@ class Solution(object):
 
     def basic(self, coins, amount):
         # return self._recursion(coins, amount, 0)
-        memo = [[None for j in range(amount+1)] for _ in range(len(coins))]
-        return self._recursion_memo(coins, amount, 0, memo)
+        # memo = [[None for j in range(amount+1)] for _ in range(len(coins))]
+        # return self._recursion_memo(coins, amount, 0, memo)
+
+        # return self._recursion_1(coins, amount)
+        memo = [-1 for _ in range(amount + 1)]
+        return self._recursion_1_memo(coins, amount, memo)
 
     def _recursion(self, coins, amount, index):
         """
@@ -56,12 +60,14 @@ class Solution(object):
             # 这个为对于每一个硬币都有0到amount/币值种可能
             # 所以背包问题没有用到循环，每一次涉及到放与不放两种递归调用
             # 这个问题涉及了循环，需要遍历一个硬币的每种可能的个数
+            # ps: 其实背包问题有一个循环的思路, 见partition_equal_subset_sum
             for x in range(max_amount + 1):  # 遍历一个硬币的所有可能
-                if amount < x*coins[index]:
+                if amount < x * coins[index]:
                     # ensure add x coins not exceed total amount
                     continue
                 # try put x coins[index], and then next coin
-                tmp = self._recursion(coins, amount - x * coins[index], index+1)
+                tmp = self._recursion(coins, amount - x * coins[index],
+                                      index + 1)
                 if tmp != -1:
                     res = min(res, tmp + x)  # 放了x个硬币的情况
 
@@ -69,6 +75,38 @@ class Solution(object):
             return res
         else:
             return -1
+
+    def _recursion_1(self, coins, amount):
+        if amount == 0:
+            return 0
+
+        res = float("inf")
+        for coin in coins:
+            if amount >= coin:
+                tmp = self._recursion_1(coins, amount - coin)
+                if tmp != -1:
+                    res = min(res, 1 + tmp)
+
+        res = -1 if res == float("inf") else res
+        return res
+
+    def _recursion_1_memo(self, coins, amount, memo):
+        if amount == 0:
+            return 0
+
+        if memo[amount] != -1:
+            return memo[amount]
+
+        res = float("inf")
+        for coin in coins:
+            if amount >= coin:
+                tmp = self._recursion_1_memo(coins, amount - coin, memo)
+                if tmp != -1:
+                    res = min(res, 1 + tmp)
+
+        res = -1 if res == float("inf") else res
+        memo[amount] = res
+        return res
 
     def _recursion_memo(self, coins, amount, index, memo):
         if amount == 0:
@@ -92,12 +130,14 @@ class Solution(object):
         # 这个为对于每一个硬币都有0到amount/币值种可能
         # 所以背包问题没有用到循环，每一次涉及到放与不放两种递归调用
         # 这个问题涉及了循环，需要遍历一个硬币的每种可能的个数
+        # ps: 其实背包问题有一个循环的思路, 见partition_equal_subset_sum
         for x in range(max_amount + 1):  # 遍历一个硬币的所有可能
             if amount < x * coins[index]:
                 # ensure add x coins not exceed total amount
                 continue
             # try next coin
-            tmp = self._recursion_memo(coins, amount - x * coins[index], index+1, memo)
+            tmp = self._recursion_memo(coins, amount - x * coins[index],
+                                       index + 1, memo)
             if tmp != -1:
                 res = min(res, tmp + x)  # 放了x个硬币的情况
 
@@ -116,10 +156,10 @@ class Solution(object):
             # even could not hold the minimum coin
             return -1
         # capacity + 1, is to consider package [0, capacity]
-        memo = [[-1 for j in range(amount+1)] for _ in range(len(coins))]
+        memo = [[-1 for j in range(amount + 1)] for _ in range(len(coins))]
 
         # initialize
-        for j in range(0, amount+1):
+        for j in range(0, amount + 1):
             # todo: attention sort coins is unnecessary
             if j % coins[0] == 0:
                 memo[0][j] = j // coins[0]
@@ -127,7 +167,7 @@ class Solution(object):
                 memo[0][j] = -1  # coins[0]凑不出amount j
 
         for i in range(1, len(coins)):
-            for j in range(amount+1):
+            for j in range(amount + 1):
                 # how many coin amount j could hold at most
                 max_amount = j // coins[i]
                 res = float("inf")
@@ -142,33 +182,32 @@ class Solution(object):
                         res = min(res, x + memo[i - 1][j - x * coins[i]])
                         memo[i][j] = res
 
-        return memo[len(coins)-1][amount]
+        return memo[len(coins) - 1][amount]
 
 
 if __name__ == "__main__":
     import time
+
     test_coins = [1, 2, 5]
     test_amount = 11
     # test_coins = [2]
-    # test_amount = 3
+    # # test_amount = 3
     # test_amount = 1
+    # #
+    # test_coins = [1]
+    # test_amount = 0
+    # #
+    # test_coins = [2]
+    # test_amount = 4
     #
-    # # test_coins = [1]
-    # # test_amount = 0
-    #
-    test_coins = [2]
-    test_amount = 4
-
-    test_coins = [2, 5, 10, 1]
-    test_coins = [1, 2, 5, 10]
-    test_amount = 27
+    # test_coins = [2, 5, 10, 1]
+    # test_coins = [1, 2, 5, 10]
+    # test_amount = 27
     test_coins = [470, 35, 120, 81, 121]
     test_amount = 9825
-    test_coins = [186,419,83,408]
+    test_coins = [186, 419, 83, 408]
     test_amount = 6249
 
     t1 = time.time()
     print(Solution().coinChange(test_coins, test_amount))
     print(time.time() - t1)
-
-
