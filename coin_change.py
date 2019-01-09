@@ -77,6 +77,12 @@ class Solution(object):
             return -1
 
     def _recursion_1(self, coins, amount):
+        """
+        recursion tree thought
+        :param coins:
+        :param amount:
+        :return:
+        """
         if amount == 0:
             return 0
 
