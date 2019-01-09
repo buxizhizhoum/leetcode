@@ -77,6 +77,7 @@ class Solution(object):
         # 0-1 package is 2 situation, relation to for loop
         # according to recursion tree,
         # it seems this is more easy to understand?
+        # this for loop ensures it could skip any number in range[index, len(nums))
         for i in range(index, len(nums)):
             # attention it is i + 1
             if self._recursion_1(nums, i+1, sum_total-nums[i]) is True:
