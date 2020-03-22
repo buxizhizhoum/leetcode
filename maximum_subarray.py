@@ -27,18 +27,18 @@ class Solution(object):
         if len(nums) == 1:
             return nums[0]
 
-        res = nums[0]
+        sub_sum = nums[0]
         # cur_sum = nums[0]
-        max_sum = res
+        max_sum = sub_sum
         for i in range(1, len(nums)):
             # accumulate is better than start from current
-            if res + nums[i] >= nums[i]:
-                res += nums[i]
+            if sub_sum + nums[i] >= nums[i]:
+                sub_sum += nums[i]
             # start from current point
             else:
-                res = nums[i]
+                sub_sum = nums[i]
 
-            max_sum = max(res, max_sum)
+            max_sum = max(sub_sum, max_sum)
         return max_sum
 
 
