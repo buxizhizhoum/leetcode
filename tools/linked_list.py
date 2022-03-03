@@ -9,6 +9,9 @@ class ListNode(object):
         self.val = x
         self.next = None
 
+    def __repr__(self):
+        return f"{self.val}"
+
 
 class LinkedList(object):
     def __init__(self, data):

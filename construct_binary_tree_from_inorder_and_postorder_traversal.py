@@ -38,6 +38,10 @@ class Solution(object):
 
         postorder[:index] belong to left tree, postorder[index:-1] belong to right tree
 
+        left -> root -> right
+        left -> right -> root
+        after find the root in in order, the left part is at left tree
+
         :type inorder: List[int]
         :type postorder: List[int]
         :rtype: TreeNode

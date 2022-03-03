@@ -39,7 +39,7 @@ class Solution(object):
 
 if __name__ == "__main__":
     solution = Solution()
-    print solution.reverse(132)
-    print solution.reverse(130)
-    print solution.reverse(-123)
-    print solution.reverse(-2147483648)
+    print(solution.reverse(132))
+    print(solution.reverse(130))
+    print(solution.reverse(-123))
+    print(solution.reverse(-2147483648))
