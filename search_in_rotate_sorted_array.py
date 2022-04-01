@@ -69,6 +69,34 @@ class Solution(object):
             return res
         return -1
 
+class Solution2:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = left + (right - left) // 2
+
+            if nums[mid] == target:
+                return mid
+
+            # left part ordered
+            if nums[mid] > nums[left]:
+                if nums[left] <= target < nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            # right part ordered
+            elif nums[mid] < nums[left]:
+                if nums[mid] < target <= nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            else:
+                left = mid + 1
+
+            # print(left, right)
+
+        return -1
+    
 
 if __name__ == "__main__":
     test_nums = [4,5,6,7,0,1,2]
